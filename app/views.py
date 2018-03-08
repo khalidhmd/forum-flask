@@ -21,15 +21,7 @@ def topic_add():
 
 @app.route("/topic/show/<int:id>")
 def topic_show(id):
-    if request.method == "GET":
-        return render_template("topic_show.html", post=post_store.get_by_id(id))
-    elif request.method == "POST":
-        new_post = models.Post(
-            request.form["topictitle"], request.form["topicbody"], 1)
-        post_store.add(new_post)
-        return redirect(url_for("home"))
-
-    #return render_template("topic_show.html", post=post_store.get_by_id(id))
+    return render_template("topic_show.html", post=post_store.get_by_id(id))
 
 
 @app.route("/topic/delete/<int:id>")
@@ -38,12 +30,13 @@ def topic_delete(id):
     return redirect(url_for("home"))
 
 
-
-    
-#
-#@app.route("/topic/edit/<id>", methods=["GET", "POST"])
-#def topic_edit():
-#    if request.method == "POST":
-#        new_post = models.Post(request["topititle"], request["topicbody"], request["memberid"], request["topicid"])
-#        post_store.update(new_post)
-#        return redirect(url_for("home"))
+@app.route("/topic/update/<int:id>", methods=["GET", "POST"])
+def topic_update(id):
+    post = post_store.get_by_id(id)
+    if request.method == "GET":
+        return render_template("topic_update.html", post=post)
+    if request.method == "POST":
+        post.title = request.form["topictitle"]
+        post.body = request.form["topicbody"]
+        post_store.update(post)
+        return redirect(url_for("home"))

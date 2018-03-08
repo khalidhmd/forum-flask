@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>Show Topic</h1>
-    <form action="{{ url_for("topic_show") }}" method="post">
+    
         <div>
-            <label for="topictitle">Topic Title</label>
-            <input type="text" name="topictitle" id="topictitle" value="{{post.title}}">
+            <label >Topic Title</label>
+            <div>{{post.title}}</div>
         </div>
         <div>
-            <label for="topicbody">Topic Body</label>
-            <input type="text" name="topicbody" id="topicbody" value="{{post.body}}">
+            <label >Topic Body</label>
+            <div>{{post.body}}</div>
         </div>
         <div>
             <input type="submit" value="Save Topic">
