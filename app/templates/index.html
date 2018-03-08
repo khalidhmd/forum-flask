@@ -38,10 +38,10 @@
                         {{post.title}}
                     </td>
                     <td>
-                        <a href="#">edit</a>
+                        <a href="{{ url_for("topic_show", id = post.id) }}">show</a>
                     </td>
                     <td>
-                        <a href="#">delete</a>
+                        <a href="{{ url_for("topic_delete", id = post.id) }}">delete</a>
                     </td>
                 </tr>
                 {% endfor %}
