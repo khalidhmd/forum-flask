@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, abort
 from app import models
 from app import app, member_store, post_store
 
@@ -21,7 +21,10 @@ def topic_add():
 
 @app.route("/topic/show/<int:id>")
 def topic_show(id):
-    return render_template("topic_show.html", post=post_store.get_by_id(id))
+    post = post_store.get_by_id(id)
+    if post == None:
+        abort(404)
+    return render_template("topic_show.html", post=post)
 
 
 @app.route("/topic/delete/<int:id>")
@@ -40,3 +43,8 @@ def topic_update(id):
         post.body = request.form["topicbody"]
         post_store.update(post)
         return redirect(url_for("home"))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
