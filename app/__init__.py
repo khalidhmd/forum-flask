@@ -10,5 +10,6 @@ member_store = stores.MemberStore()
 post_store = stores.PostStore()
 
 from app.views import *
+from app.api import *
 dm.seed_stores(member_store, post_store)
 
