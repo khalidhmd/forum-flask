@@ -22,7 +22,7 @@ def topic_add():
 @app.route("/topic/show/<int:id>")
 def topic_show(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     return render_template("topic_show.html", post=post)
 
@@ -30,7 +30,7 @@ def topic_show(id):
 @app.route("/topic/delete/<int:id>")
 def topic_delete(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     post_store.delete(id)
     return redirect(url_for("home"))
@@ -39,7 +39,7 @@ def topic_delete(id):
 @app.route("/topic/update/<int:id>", methods=["GET", "POST"])
 def topic_update(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     if request.method == "GET":
         return render_template("topic_update.html", post=post)

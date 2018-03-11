@@ -21,7 +21,7 @@ def topic_create():
 @app.route("/api/topic/get_topic/<int:id>")
 def get_topic(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     return jsonify(post.__dict__())
 
@@ -29,7 +29,7 @@ def get_topic(id):
 @app.route("/api/topic/delete/<int:id>", methods=["DELETE"])
 def delete(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     post_store.delete(id)
     return '', status.HTTP_204_NO_CONTENT
@@ -38,7 +38,7 @@ def delete(id):
 @app.route("/api/topic/update/<int:id>", methods=["PUT"])
 def update(id):
     post = post_store.get_by_id(id)
-    if post == None:
+    if post is None:
         abort(404)
     request_data = request.get_json()
     post.title = request_data["title"]
