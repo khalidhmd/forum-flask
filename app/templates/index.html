@@ -38,10 +38,10 @@
                         <a href="{{ url_for("topic_show", id = post.id) }}">{{post.title}}</a> 
                     </td>
                     <td>
-                        <a href="{{ url_for("topic_update", id = post.id) }}">Edit</a>
+                        <a href="{{ url_for("topic_update", id = post.id) }}" >Edit</a>
                     </td>
                     <td>
-                        <a href="{{ url_for("topic_delete", id = post.id) }}">delete</a>
+                        <a class="delete" href="#" data-id="{{post.id}}">delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -51,3 +51,26 @@
     <footer>Khalid Hasan (Release V1.0.0.1)</footer>
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script>
+    jQuery(function () {
+        $(".delete").click(function (event) {
+            var id = $(this).attr('data-id');
+            var url1 = "/api/topic/delete/" + id
+            $.ajax({
+                type: "DELETE",
+                url: url1,
+                contentType: "application/json; charset=ytf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Deleted topic successfully !");
+                }
+            });
+        });
+        
+
+            
+        
+    });
+</script>
