@@ -24,3 +24,4 @@ requests==2.18.4
 six==1.11.0
 Werkzeug==0.14.1
 wrapt==1.10.11
+psycopg2==2.7.4
