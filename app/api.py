@@ -13,9 +13,9 @@ def topic_get_all():
 @app.route("/api/topic/add", methods = ["POST"])
 def topic_create():
     request_data = request.get_json()
-    new_post = models.Post(request_data["title"], request_data["body"])
+    new_post = models.Post(title = request_data["title"], content = request_data["body"])
     post_store.add(new_post)
-    return jsonify(new_post.__dict__())
+    return jsonify(new_post.as_dict())
 
 
 @app.route("/api/topic/get_topic/<int:id>")
@@ -23,7 +23,7 @@ def get_topic(id):
     post = post_store.get_by_id(id)
     if post is None:
         abort(404)
-    return jsonify(post.__dict__())
+    return jsonify(post.as_dict())
 
 
 @app.route("/api/topic/delete/<int:id>", methods=["DELETE"])

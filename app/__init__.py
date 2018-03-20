@@ -1,15 +1,20 @@
-from app import models
-from app import stores
-from flask import Flask, render_template
-from app import dummy_data as dm
-
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
+
+folder_path = os.path.abspath(os.path.dirname(__file__))
+app.config["SQLALCHEMY_DATABASE_URI"] = f"""sqlite:///{os.path.join(folder_path, "my_database.db")}"""
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+db = SQLAlchemy(app)
+
+from app import stores, dummy_data
 
 member_store = stores.MemberStore()
 post_store = stores.PostStore()
 
-from app.views import *
-from app.api import *
-dm.seed_stores(member_store, post_store)
+
+from app import views
+from app import api
 

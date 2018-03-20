@@ -1,16 +1,19 @@
+from sqlalchemy import desc, func
+from app import db
 import datetime
 
-class Member():
-    def __init__(self, name, age, id = 0):
-        self.id = id
-        self.name = name
-        self.age = age
-        self.member_posts = []
+class Member(db.Model):
 
-    def __str__(self):
-        return 'Name: {}, Age: {}, Posts: {}'.format(self.name, self.age, len(self.member_posts))
 
-    def __dict__(self):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    age = db.Column(db.Integer)
+    posts = db.relationship("Post", backref="members")
+
+    def __repr__(self):
+        return 'Name: {}, Age: {}, Posts: {}'.format(self.name, self.age, len(self.posts))
+
+    def as_dict(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -18,22 +21,22 @@ class Member():
             "posts": self.member_posts
         }
 
-class Post():
-    def __init__(self, title, body, member_id = 0, id = 0):
-        self.id = id
-        self.title = title
-        self.body = body
-        self.member_id = member_id
-        self.post_date = datetime.datetime.now()
+class Post(db.Model):
 
-    def __str__(self):
-        return 'Title: {}, Content: {}'.format(self.title, self.body)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50))
+    content = db.Column(db.String(800))
+    member_id = db.Column(db.Integer, db.ForeignKey("member.id"))
+    post_date = db.Column(db.Date)
 
-    def __dict__(self):
+    def __repr__(self):
+        return 'Title: {}, Content: {}'.format(self.title, self.content)
+
+    def as_dict(self):
         return {
             "id": self.id,
             "title": self.title,
-            "body": self.body,
+            "content": self.content,
             "member_id": self.member_id,
             "date": self.post_date
         }

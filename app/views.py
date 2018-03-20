@@ -14,7 +14,7 @@ def topic_add():
     if request.method == "GET":
         return render_template("topic_add.html")
     elif request.method == "POST":
-        new_post = models.Post(request.form["topictitle"], request.form["topicbody"], 1)
+        new_post = models.Post(title = request.form["topictitle"], content = request.form["topicbody"])
         post_store.add(new_post)
         return redirect(url_for("home"))
 
@@ -45,7 +45,7 @@ def topic_update(id):
         return render_template("topic_update.html", post=post)
     if request.method == "POST":
         post.title = request.form["topictitle"]
-        post.body = request.form["topicbody"]
+        post.content = request.form["topicbody"]
         post_store.update(post)
         return redirect(url_for("home"))
 
