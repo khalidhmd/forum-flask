@@ -14,6 +14,7 @@ from app import stores, dummy_data
 member_store = stores.MemberStore()
 post_store = stores.PostStore()
 
+dummy_data.seed_stores()
 
 from app import views
 from app import api
