@@ -11,8 +11,8 @@ db = SQLAlchemy(app)
 
 from app import stores, dummy_data
 
-member_store = dummy_data.dummy_members
-post_store = dummy_data.dummy_posts
+member_store = stores.MemberStore()
+post_store = stores.PostStore()
 
 dummy_data.seed_stores(member_store, post_store)
 
